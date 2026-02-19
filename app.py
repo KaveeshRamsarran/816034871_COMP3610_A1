@@ -35,16 +35,33 @@ st.set_page_config(
 TAXI_DATA_URL = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
 ZONE_LOOKUP_URL = "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv"
 
-@st.cache_data(ttl=3600)
+# Local data paths
+LOCAL_RAW_PARQUET = Path("data/raw/yellow_tripdata_2024-01.parquet")
+LOCAL_PROCESSED_PARQUET = Path("data/processed/taxi_data_processed.parquet")
+LOCAL_LOOKUP_CSV = Path("data/raw/taxi_zone_lookup.csv")
+
+@st.cache_data(show_spinner="Loading taxi data...", ttl=3600)
 def download_data():
-    """Download the taxi trip data and zone lookup table."""
-    # Download taxi data
-    taxi_df = pd.read_parquet(TAXI_DATA_URL)
+    """Download the taxi trip data and zone lookup table.
+    Uses local files if available, otherwise downloads from URL.
+    """
+    # Try local processed data first (fastest)
+    if LOCAL_PROCESSED_PARQUET.exists():
+        taxi_df = pd.read_parquet(LOCAL_PROCESSED_PARQUET)
+        zones_df = pd.read_csv(LOCAL_LOOKUP_CSV) if LOCAL_LOOKUP_CSV.exists() else pd.read_csv(ZONE_LOOKUP_URL)
+        return taxi_df, zones_df, True  # True = already processed
     
-    # Download zone lookup
+    # Try local raw data
+    if LOCAL_RAW_PARQUET.exists():
+        taxi_df = pd.read_parquet(LOCAL_RAW_PARQUET)
+        zones_df = pd.read_csv(LOCAL_LOOKUP_CSV) if LOCAL_LOOKUP_CSV.exists() else pd.read_csv(ZONE_LOOKUP_URL)
+        return taxi_df, zones_df, False  # False = needs processing
+    
+    # Download from URL
+    taxi_df = pd.read_parquet(TAXI_DATA_URL)
     zones_df = pd.read_csv(ZONE_LOOKUP_URL)
     
-    return taxi_df, zones_df
+    return taxi_df, zones_df, False
 
 @st.cache_data(ttl=3600)
 def clean_and_transform_data(df):
@@ -100,11 +117,17 @@ def clean_and_transform_data(df):
     
     return df
 
-@st.cache_data(ttl=3600)
+@st.cache_data(show_spinner="Preparing data...", ttl=3600)
 def load_data():
     """Main function to load and prepare all data."""
-    taxi_df, zones_df = download_data()
-    clean_df = clean_and_transform_data(taxi_df)
+    taxi_df, zones_df, already_processed = download_data()
+    
+    # Skip cleaning if already processed
+    if already_processed:
+        clean_df = taxi_df
+    else:
+        clean_df = clean_and_transform_data(taxi_df)
+    
     return clean_df, zones_df
 
 # =============================================================================
