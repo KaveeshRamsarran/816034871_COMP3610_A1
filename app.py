@@ -128,6 +128,19 @@ def load_data():
     else:
         clean_df = clean_and_transform_data(taxi_df)
     
+    # Ensure required temporal columns exist (even if loaded from processed file)
+    if 'pickup_date' not in clean_df.columns:
+        clean_df['pickup_date'] = pd.to_datetime(clean_df['tpep_pickup_datetime']).dt.date
+    if 'pickup_hour' not in clean_df.columns:
+        clean_df['pickup_hour'] = pd.to_datetime(clean_df['tpep_pickup_datetime']).dt.hour
+    if 'pickup_day_name' not in clean_df.columns:
+        clean_df['pickup_day_name'] = pd.to_datetime(clean_df['tpep_pickup_datetime']).dt.day_name()
+    if 'pickup_day_of_week' not in clean_df.columns:
+        clean_df['pickup_day_of_week'] = pd.to_datetime(clean_df['tpep_pickup_datetime']).dt.dayofweek
+    if 'payment_method' not in clean_df.columns:
+        payment_map = {1: 'Credit Card', 2: 'Cash', 3: 'No Charge', 4: 'Dispute', 5: 'Unknown', 6: 'Voided Trip'}
+        clean_df['payment_method'] = clean_df['payment_type'].map(payment_map).fillna('Other')
+    
     return clean_df, zones_df
 
 # =============================================================================
