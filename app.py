@@ -12,7 +12,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="NYC Yellow Taxi Dashboard (Jan 2024)",
-    page_icon="??",
+    page_icon="🚕",
     layout="wide",
     initial_sidebar_state="expanded",
 )

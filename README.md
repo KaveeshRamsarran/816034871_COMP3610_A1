@@ -12,7 +12,9 @@
 This project implements an end-to-end data pipeline that ingests, transforms, and analyzes the **NYC Yellow Taxi Trip dataset** (~3 million records from January 2024), culminating in an **interactive visualization dashboard** deployed on Streamlit Community Cloud.
 
 ### 🔗 Live Dashboard
-[View the deployed dashboard here](https://your-app-name.streamlit.app) *(Update with your deployed URL)*
+**🚀 Deployed URL:** [https://816034871-comp3610-a1.streamlit.app](https://816034871-comp3610-a1.streamlit.app)
+
+> ⚠️ **Note:** Replace the above URL with your actual Streamlit Community Cloud deployment URL after deployment.
 
 ---
 
@@ -21,14 +23,17 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 ```
 816034871_COMP3610_A1/
 ├── assignment1.ipynb    # Jupyter notebook (Parts 1, 2, 3 prototypes)
-├── app.py               # Streamlit dashboard application
-├── requirements.txt     # Python dependencies
+├── app.py               # Streamlit main page (landing page)
+├── pages/               # Streamlit multi-page navigation
+│   ├── 1_Overview.py    # Dataset statistics and quality checks
+│   └── 2_Visualizations.py  # Interactive charts with filters
+├── utils.py             # Data loading and processing utilities
+├── requirements.txt     # Python dependencies with version numbers
 ├── README.md            # Project documentation (this file)
-├── .gitignore           # Git ignore rules (excludes data/)
-└── data/                # Data directory (not committed)
-    ├── raw/             # Downloaded raw data files
-    └── processed/       # Cleaned and transformed data
+└── .gitignore           # Git ignore rules (excludes data/)
 ```
+
+**Note:** Data is downloaded directly from CloudFront URLs at runtime. No local data files are stored in the repository.
 
 ---
 
@@ -50,13 +55,15 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 
 ## 🛠️ Technologies Used
 
-| Category | Technology |
-|----------|------------|
-| **Data Processing** | Python, Pandas, PyArrow |
-| **Database/SQL** | DuckDB |
-| **Visualization** | Plotly |
-| **Dashboard** | Streamlit |
-| **Deployment** | Streamlit Community Cloud |
+| Category | Technology | Version |
+|----------|------------|----------|
+| **Data Processing** | Python | 3.9+ |
+| **Data Processing** | Pandas | >=2.0.0 |
+| **Data Processing** | PyArrow | >=14.0.0 |
+| **Database/SQL** | DuckDB | >=0.9.0 |
+| **Visualization** | Plotly | >=5.18.0 |
+| **Dashboard** | Streamlit | >=1.30.0 |
+| **Deployment** | Streamlit Community Cloud | - |
 
 ---
 
