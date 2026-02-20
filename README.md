@@ -12,7 +12,7 @@
 This project implements an end-to-end data pipeline that ingests, transforms, and analyzes the **NYC Yellow Taxi Trip dataset** (~3 million records from January 2024), culminating in an **interactive visualization dashboard** deployed on Streamlit Community Cloud.
 
 ### Live Dashboard
-**Deployed URL:** [https://816034871comp3610a1-4bz95db6dgcvqwqszhirrv.streamlit.app/]
+**Deployed URL:** https://816034871comp3610a1-4bz95db6dgcvqwqszhirrv.streamlit.app/
 
 ---
 
