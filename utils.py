@@ -77,7 +77,12 @@ def load_data() -> pd.DataFrame:
     
     # Map payment types
     df['payment_method'] = df['payment_type'].map(PAYMENT_TYPE_MAP).fillna('Other')
-    
+
+    # Downsample for Streamlit Cloud (1 GB RAM limit)
+    MAX_ROWS = 500_000
+    if len(df) > MAX_ROWS:
+        df = df.sample(n=MAX_ROWS, random_state=42).reset_index(drop=True)
+
     return df
 
 

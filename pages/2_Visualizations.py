@@ -107,8 +107,8 @@ if len(filtered) == 0:
 
 st.caption(f"Showing **{len(filtered):,}** trips after filtering.")
 
-# Cap for performance
-MAX_VIS = 300_000
+# Cap for chart rendering
+MAX_VIS = 200_000
 if len(filtered) > MAX_VIS:
     st.info(f"Sampling {MAX_VIS:,} of {len(filtered):,} rows for rendering speed.")
     filtered = filtered.sample(n=MAX_VIS, random_state=42)
@@ -215,8 +215,8 @@ st.markdown("#### 5 · Weekly Demand Heatmap")
 day_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 dh = filtered.groupby(['pickup_day_of_week', 'pickup_hour']).size().reset_index(name='trips')
 hours = list(range(24))
-lookup = {(r['pickup_day_of_week'], r['pickup_hour']): r['trips'] for _, r in dh.iterrows()}
-z = [[lookup.get((d, h), 0) for h in hours] for d in day_order]
+pivot = dh.pivot(index='pickup_day_of_week', columns='pickup_hour', values='trips').reindex(index=day_order, columns=hours, fill_value=0)
+z = pivot.values.tolist()
 
 fig5 = go.Figure(data=go.Heatmap(
     z=z, x=hours, y=day_order,
