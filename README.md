@@ -12,9 +12,7 @@
 This project implements an end-to-end data pipeline that ingests, transforms, and analyzes the **NYC Yellow Taxi Trip dataset** (~3 million records from January 2024), culminating in an **interactive visualization dashboard** deployed on Streamlit Community Cloud.
 
 ### Live Dashboard
-**Deployed URL:** [https://816034871-comp3610-a1.streamlit.app](https://816034871-comp3610-a1.streamlit.app)
-
-> **Note:** Replace the above URL with your actual Streamlit Community Cloud deployment URL after deployment.
+**Deployed URL:** [https://816034871comp3610a1-4bz95db6dgcvqwqszhirrv.streamlit.app/]
 
 ---
 
@@ -181,39 +179,6 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 - Notebook documentation with markdown cells
 - Clean, well-commented code
 - Proper repository organization
-
----
-
-## Deployment to Streamlit Cloud
-
-### Step-by-Step Deployment Guide
-
-1. **Push your code to GitHub**
-   ```bash
-   git add .
-   git commit -m "Initial commit - Assignment 1"
-   git push origin main
-   ```
-
-2. **Go to Streamlit Community Cloud**
-   - Visit [share.streamlit.io](https://share.streamlit.io)
-   - Sign in with your GitHub account
-
-3. **Deploy your app**
-   - Click "New app"
-   - Select your repository: `816034871_COMP3610_A1`
-   - Set main file path: `app.py`
-   - Click "Deploy!"
-
-4. **Wait for deployment**
-   - Streamlit will install dependencies and launch your app
-   - This may take 2-5 minutes on first deployment
-
-5. **Get your public URL**
-   - Your app will be available at: `https://your-app-name.streamlit.app`
-   - Update this README with your actual URL
-
----
 
 ## Key Findings
 
