@@ -13,7 +13,7 @@ from utils import load_data, load_zones, PAYMENT_TYPE_MAP
 
 st.title("Interactive Visualizations")
 st.markdown(
-    "Five interactive charts built with **Plotly**, each responding to the "
+    "Five interactive charts, each responding to the "
     "filter controls below. Adjust the date range, hours, or payment types "
     "to slice the data in real time."
 )
@@ -57,7 +57,7 @@ payment_labels = [f"{c} – {PAYMENT_TYPE_MAP.get(c, 'Other')}" for c in payment
 jan_start = date(2024, 1, 1)
 jan_end   = date(2024, 1, 31)
 
-with st.expander("\U0001F50D  **Filter Controls**", expanded=False):
+with st.expander("Filter Controls", expanded=False):
     fc1, fc2 = st.columns(2)
     with fc1:
         date_range = st.date_input(
