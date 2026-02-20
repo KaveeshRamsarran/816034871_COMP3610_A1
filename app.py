@@ -54,7 +54,7 @@ st.markdown("### At a Glance")
 m1, m2, m3, m4, m5 = st.columns(5)
 
 m1.metric("Trips Recorded", f"{len(df):,}")
-m2.metric("Avg Fare (\$)", f"{df['fare_amount'].mean():.2f}")
+m2.metric("Avg Fare ($)", f"{df['fare_amount'].mean():.2f}")
 m3.metric(
     "Revenue (Total)",
     f"${df['total_amount'].sum() / 1_000_000:.2f}M",

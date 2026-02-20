@@ -31,7 +31,15 @@ PAYMENT_TYPE_MAP = {
 @st.cache_data(show_spinner="Loading trip data...", ttl=3600)
 def load_data() -> pd.DataFrame:
     """Load and clean trip data (cached). Downloads directly from URL."""
-    df = pd.read_parquet(TAXI_DATA_URL)
+    # Only read columns we need — saves memory on Streamlit Cloud free tier
+    needed = [
+        'tpep_pickup_datetime', 'tpep_dropoff_datetime',
+        'PULocationID', 'DOLocationID',
+        'passenger_count', 'trip_distance',
+        'fare_amount', 'tip_amount', 'total_amount',
+        'payment_type',
+    ]
+    df = pd.read_parquet(TAXI_DATA_URL, columns=needed)
     
     # Cleaning
     critical_columns = ['tpep_pickup_datetime', 'tpep_dropoff_datetime', 
