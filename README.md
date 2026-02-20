@@ -7,18 +7,18 @@
 
 ---
 
-## 📋 Project Overview
+## Project Overview
 
 This project implements an end-to-end data pipeline that ingests, transforms, and analyzes the **NYC Yellow Taxi Trip dataset** (~3 million records from January 2024), culminating in an **interactive visualization dashboard** deployed on Streamlit Community Cloud.
 
-### 🔗 Live Dashboard
-**🚀 Deployed URL:** [https://816034871-comp3610-a1.streamlit.app](https://816034871-comp3610-a1.streamlit.app)
+### Live Dashboard
+**Deployed URL:** [https://816034871-comp3610-a1.streamlit.app](https://816034871-comp3610-a1.streamlit.app)
 
-> ⚠️ **Note:** Replace the above URL with your actual Streamlit Community Cloud deployment URL after deployment.
+> **Note:** Replace the above URL with your actual Streamlit Community Cloud deployment URL after deployment.
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 816034871_COMP3610_A1/
@@ -37,7 +37,7 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 
 ---
 
-## 🗃️ Dataset
+## Dataset
 
 ### Primary Dataset
 - **NYC Yellow Taxi Trip Data (January 2024)**
@@ -53,7 +53,7 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 | Category | Technology | Version |
 |----------|------------|----------|
@@ -67,7 +67,7 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Python 3.9 or higher
@@ -110,38 +110,38 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 
 ---
 
-## 📊 Assignment Components
+## Assignment Components
 
 ### Part 1: Data Ingestion & Storage (20 marks)
 
-- ✅ **Programmatic Download** (5 marks)
+- **Programmatic Download** (5 marks)
   - Downloads Parquet and CSV files using Python `requests` library
   - Progress tracking and error handling
 
-- ✅ **Data Validation** (10 marks)
+- **Data Validation** (10 marks)
   - Verifies expected columns exist
   - Validates datetime types
   - Reports row counts
   - Raises exceptions on validation failure
 
-- ✅ **File Organization** (5 marks)
+- **File Organization** (5 marks)
   - Data saved to `data/raw/` directory
   - `.gitignore` excludes data directory
 
 ### Part 2: Data Transformation & Analysis (30 marks)
 
-- ✅ **Data Cleaning** (10 marks)
+- **Data Cleaning** (10 marks)
   - Removes null values in critical columns
   - Filters invalid trips (zero/negative distance, fare, duration)
   - Documents all removals with statistics
 
-- ✅ **Feature Engineering** (10 marks)
+- **Feature Engineering** (10 marks)
   - `trip_duration_minutes`: Trip duration in minutes
   - `trip_speed_mph`: Average speed in MPH
   - `pickup_hour`: Hour of pickup (0-23)
   - `pickup_day_of_week`: Day of week (0=Monday)
 
-- ✅ **SQL Analysis with DuckDB** (10 marks)
+- **SQL Analysis with DuckDB** (10 marks)
   1. Top 10 busiest pickup zones
   2. Average fare by hour of day
   3. Payment type distribution (percentages)
@@ -150,41 +150,41 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 
 ### Part 3: Visualization Dashboard (40 marks)
 
-- ✅ **Dashboard Structure** (5 marks)
+- **Dashboard Structure** (5 marks)
   - Clear title and introduction
   - Tab-based navigation (Overview, Locations, Payments, Temporal)
 
-- ✅ **Key Metrics** (5 marks)
+- **Key Metrics** (5 marks)
   - Total trips
   - Average fare
   - Total revenue
   - Average distance
   - Average duration
 
-- ✅ **5 Visualizations** (20 marks)
+- **5 Visualizations** (20 marks)
   1. Bar chart: Top 10 pickup zones by borough
   2. Line chart: Average fare by hour
   3. Histogram: Trip distance distribution
   4. Pie chart: Payment type distribution
   5. Heatmap: Trips by day and hour
 
-- ✅ **Interactive Filters** (5 marks)
+- **Interactive Filters** (5 marks)
   - Date range selector
   - Hour range slider
   - Payment type multi-select dropdown
 
-- ✅ **Insights** (5 marks)
+- **Insights** (5 marks)
   - Each visualization includes 2-3 sentences of interpretation
 
 ### Part 4: Documentation & Code Quality (10 marks)
 
-- ✅ Notebook documentation with markdown cells
-- ✅ Clean, well-commented code
-- ✅ Proper repository organization
+- Notebook documentation with markdown cells
+- Clean, well-commented code
+- Proper repository organization
 
 ---
 
-## 🌐 Deployment to Streamlit Cloud
+## Deployment to Streamlit Cloud
 
 ### Step-by-Step Deployment Guide
 
@@ -215,7 +215,7 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 
 ---
 
-## 📈 Key Findings
+## Key Findings
 
 ### Trip Patterns
 - **Peak Hours:** Evening rush hour (5-7 PM) shows highest demand
@@ -234,7 +234,7 @@ This project implements an end-to-end data pipeline that ingests, transforms, an
 
 ---
 
-## 📚 References
+## References
 
 - [NYC TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
 - [Streamlit Documentation](https://docs.streamlit.io/)
