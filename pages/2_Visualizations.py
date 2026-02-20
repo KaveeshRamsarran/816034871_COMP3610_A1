@@ -73,7 +73,7 @@ with st.expander("\U0001F50D  **Filter Controls**", expanded=False):
         )
         dist_cap = st.slider("Max trip distance shown (mi)", 5, 100, 50)
 
-    apply_btn = st.button("Apply filters", type="primary", use_container_width=True)
+    apply_btn = st.button("Apply filters", type="primary", width="stretch")
 
 # Persist applied filters across re-renders
 if "vis_filters" not in st.session_state:
@@ -128,7 +128,7 @@ fig1.update_layout(
     xaxis_title="Zone", yaxis_title="Trip Count",
     xaxis_tickangle=-40, height=480,
 )
-st.plotly_chart(fig1, use_container_width=True)
+st.plotly_chart(fig1, width="stretch")
 st.caption(
     "Manhattan's core commercial districts — particularly Midtown and the Upper East Side — "
     "generate the highest pickup volumes. Airport zones (JFK, LaGuardia) also rank among "
@@ -154,7 +154,7 @@ fig2.update_layout(
     xaxis_title="Hour of Day", yaxis_title="Avg Fare ($)",
     height=400,
 )
-st.plotly_chart(fig2, use_container_width=True)
+st.plotly_chart(fig2, width="stretch")
 st.caption(
     "Fares are notably higher around 5–6 AM, likely reflecting longer airport-bound trips "
     "before rush hour. The lowest averages appear during the 2–4 AM window, when both demand "
@@ -179,7 +179,7 @@ fig3.update_layout(
     xaxis_title="Distance (miles)", yaxis_title="Trip Count",
     height=400,
 )
-st.plotly_chart(fig3, use_container_width=True)
+st.plotly_chart(fig3, width="stretch")
 st.caption(
     "The distribution is heavily right-skewed: most rides cover fewer than 5 miles, "
     "consistent with intra-borough commuting. Longer trips taper off quickly, with sporadic "
@@ -197,11 +197,10 @@ pay = pay.sort_values('trips', ascending=False)
 fig4 = go.Figure([go.Pie(
     labels=pay['payment_method'].tolist(),
     values=pay['trips'].tolist(),
-    hole=0.35,
     marker_colors=['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D3F3'],
 )])
 fig4.update_layout(height=420)
-st.plotly_chart(fig4, use_container_width=True)
+st.plotly_chart(fig4, width="stretch")
 st.caption(
     "Credit-card transactions dominate at roughly 80 % of all rides, underscoring  "
     "the cashless trend in NYC taxis. Cash makes up the bulk of the remainder, while  "
@@ -227,7 +226,7 @@ fig5.update_layout(
     xaxis_title="Hour of Day", yaxis_title="Day",
     height=420,
 )
-st.plotly_chart(fig5, use_container_width=True)
+st.plotly_chart(fig5, width="stretch")
 st.caption(
     "Weekday mornings (8–9 AM) and late afternoons (4–6 PM) display the sharpest demand spikes, "
     "mirroring typical commute windows. Weekend activity shifts later into the evening — "

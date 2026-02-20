@@ -45,7 +45,7 @@ with st.expander("Summary Statistics", expanded=True):
         "Select numeric columns to describe:", numeric_cols, default=defaults, key="stats_cols"
     )
     if chosen:
-        st.dataframe(df[chosen].describe(), use_container_width=True)
+        st.dataframe(df[chosen].describe(), width="stretch")
     else:
         st.warning("Pick at least one column to see statistics.")
 
@@ -55,7 +55,7 @@ with st.expander("Sample Rows"):
         "Columns:", df.columns.tolist(), default=df.columns[:8].tolist(), key="sample_cols"
     )
     if cols_to_show:
-        st.dataframe(df[cols_to_show].head(row_count), use_container_width=True)
+        st.dataframe(df[cols_to_show].head(row_count), width="stretch")
     else:
         st.warning("Pick at least one column.")
 
@@ -66,7 +66,7 @@ with st.expander("Column Types & Nulls"):
         "Non-Null Count": [df[c].notna().sum() for c in df.columns],
         "Null %": [round(df[c].isna().sum() / len(df) * 100, 2) for c in df.columns],
     }
-    st.dataframe(pd.DataFrame(info_rows), use_container_width=True)
+    st.dataframe(pd.DataFrame(info_rows), width="stretch")
 
 st.divider()
 
@@ -86,7 +86,7 @@ with left:
     missing_df = missing_df[missing_df['Missing'] > 0].sort_values('Missing', ascending=False)
 
     if len(missing_df) > 0:
-        st.dataframe(missing_df, use_container_width=True)
+        st.dataframe(missing_df, width="stretch")
     else:
         st.success("No missing values remain after cleaning.")
 
@@ -97,6 +97,6 @@ with right:
                   if c in df.columns]
     if range_cols:
         rows = [{"Column": c, "Min": df[c].min(), "Max": df[c].max()} for c in range_cols]
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(rows), width="stretch")
     else:
         st.info("No numeric range columns found.")
