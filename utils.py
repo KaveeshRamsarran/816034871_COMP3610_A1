@@ -40,7 +40,9 @@ def load_data() -> pd.DataFrame:
     df = df.dropna(subset=critical_columns)
     df = df[df['trip_distance'] > 0]
     df = df[df['fare_amount'] > 0]
+    df = df[df['fare_amount'] <= 500]
     df = df[df['total_amount'] > 0]
+    df = df[df['tpep_dropoff_datetime'] > df['tpep_pickup_datetime']]
     
     # Keep only January 2024 data
     df = df[(df['tpep_pickup_datetime'] >= '2024-01-01') & 
@@ -62,8 +64,7 @@ def load_data() -> pd.DataFrame:
     
     # Add temporal features
     df['pickup_hour'] = df['tpep_pickup_datetime'].dt.hour
-    df['pickup_day_of_week'] = df['tpep_pickup_datetime'].dt.dayofweek
-    df['pickup_day_name'] = df['tpep_pickup_datetime'].dt.day_name()
+    df['pickup_day_of_week'] = df['tpep_pickup_datetime'].dt.day_name()
     df['pickup_date'] = df['tpep_pickup_datetime'].dt.date
     
     # Map payment types

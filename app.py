@@ -4,116 +4,105 @@ NYC Yellow Taxi Trip Data Dashboard
 
 Student ID: 816034871
 
-This Streamlit application provides an interactive dashboard for exploring
-NYC Yellow Taxi trip data from January 2024.
+Interactive Streamlit dashboard for analyzing NYC Yellow Taxi
+trip records from January 2024.
 """
 
 import streamlit as st
 
 st.set_page_config(
-    page_title="NYC Yellow Taxi Dashboard (Jan 2024)",
-    page_icon="🚕",
+    page_title="Yellow Taxi Analytics | Jan 2024",
+    page_icon="\U0001F695",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
 from utils import load_data, clear_cache, PAYMENT_TYPE_MAP
 
-# Sidebar - Clear cache button
-with st.sidebar:
-    if st.button("Clear cache + rerun"):
-        clear_cache()
-        st.rerun()
+# ── Sidebar ──────────────────────────────────────────────────────────────────
+st.sidebar.title("\U0001F695 Yellow Taxi Analytics")
+st.sidebar.markdown("**January 2024 · NYC TLC Data**")
+st.sidebar.divider()
 
-st.title("NYC Yellow Taxi Dashboard (January 2024)")
-
-st.write(
-    "This dashboard explores NYC Yellow Taxi trips for January 2024. "
-    "Use the sidebar pages to view an overview of the cleaned dataset "
-    "and interactive visualizations with filters."
+st.sidebar.markdown(
+    "Browse the pages above to explore dataset statistics "
+    "and interactive trip visualizations."
 )
 
-# The dataset is programmatically downloaded and processed in utils.py,
-# where cleaning and feature engineering are applied prior to visualization.
+st.sidebar.divider()
+st.sidebar.caption("Student ID: 816034871")
+st.sidebar.caption("COMP 3610 · Big Data Analytics")
+
+if st.sidebar.button("\U0001F504 Refresh data cache"):
+    clear_cache()
+    st.rerun()
+
+# ── Main content ─────────────────────────────────────────────────────────────
+st.title("NYC Yellow Taxi Trip Analysis")
+st.markdown(
+    "Welcome! This dashboard provides an interactive look at **~2.8 million** "
+    "yellow taxi trips recorded in **New York City during January 2024**. "
+    "The underlying data was downloaded programmatically from the NYC Taxi & "
+    "Limousine Commission, cleaned, and enriched with derived features."
+)
 
 df = load_data()
 
-# =============================================================================
-# Key Metrics
-# =============================================================================
-st.subheader("Key Summary Metrics")
+# ── Headline numbers ─────────────────────────────────────────────────────────
+st.markdown("### At a Glance")
 
-col1, col2, col3, col4, col5 = st.columns(5)
+m1, m2, m3, m4, m5 = st.columns(5)
 
-col1.metric(
-    "Total Trips",
-    f"{len(df):,}"
+m1.metric("Trips Recorded", f"{len(df):,}")
+m2.metric("Avg Fare (\$)", f"{df['fare_amount'].mean():.2f}")
+m3.metric(
+    "Revenue (Total)",
+    f"${df['total_amount'].sum() / 1_000_000:.2f}M",
 )
-
-col2.metric(
-    "Average Fare",
-    f"${df['fare_amount'].mean():.2f}"
-)
-
-total_rev = df["total_amount"].sum()
-col3.metric(
-    "Total Revenue",
-    f"${total_rev/1_000_000:.2f}M"
-)
-
-col4.metric(
-    "Average Distance",
-    f"{df['trip_distance'].mean():.2f} miles"
-)
-
-col5.metric(
-    "Average Duration",
-    f"{df['trip_duration_minutes'].mean():.1f} mins"
-)
+m4.metric("Avg Distance", f"{df['trip_distance'].mean():.2f} mi")
+m5.metric("Avg Duration", f"{df['trip_duration_minutes'].mean():.1f} min")
 
 st.divider()
 
-# =============================================================================
-# Data Coverage
-# =============================================================================
-st.subheader("Data Coverage")
+# ── Quick facts ──────────────────────────────────────────────────────────────
+st.markdown("### Quick Facts")
 
-c1, c2 = st.columns(2)
+left, right = st.columns(2)
 
-with c1:
-    num_days = df["pickup_date"].nunique()
-    st.info(f"**Days covered:** {num_days} days (January 2024)")
+with left:
+    days_covered = df["pickup_date"].nunique()
+    st.success(f"\U0001F4C5  **{days_covered} calendar days** of trip data (January 2024)")
 
-with c2:
-    top_payment_code = int(df["payment_type"].value_counts().index[0])
-    st.info(
-        f"**Most common payment:** {top_payment_code} - {PAYMENT_TYPE_MAP.get(top_payment_code, 'Other')}"
+with right:
+    top_pay = int(df["payment_type"].value_counts().index[0])
+    st.success(
+        f"\U0001F4B3  **{PAYMENT_TYPE_MAP.get(top_pay, 'Other')}** is the most popular payment method"
     )
 
 st.divider()
 
-# =============================================================================
-# Navigation Help
-# =============================================================================
-st.subheader("Navigation")
+# ── Page guide ───────────────────────────────────────────────────────────────
+st.markdown("### Explore the Dashboard")
 
-st.markdown("""
-**Use the sidebar to navigate between pages:**
+col_a, col_b = st.columns(2)
 
-1. **Overview** - Dataset statistics, data quality checks, and column information
-2. **Visualizations** - Interactive charts with filters:
-   - Top 10 Pickup Zones
-   - Average Fare by Hour
-   - Trip Distance Distribution
-   - Payment Type Breakdown
-   - Day/Hour Heatmap
-""")
+with col_a:
+    st.info(
+        "**\U0001F4CA  Overview**\n\n"
+        "Inspect dataset dimensions, column types, missing-value counts, "
+        "and basic summary statistics."
+    )
+
+with col_b:
+    st.info(
+        "**\U0001F4C8  Visualizations**\n\n"
+        "Five interactive Plotly charts with date, hour, and payment-type "
+        "filters. Each chart includes a brief interpretation."
+    )
 
 st.markdown("---")
-st.markdown("""
-<div style='text-align: center'>
-    <p><strong>COMP 3610: Big Data Analytics - Assignment 1</strong></p>
-    <p>Data Source: NYC Taxi & Limousine Commission | January 2024</p>
-    <p>Student ID: 816034871</p>
-</div>
-""", unsafe_allow_html=True)
+st.caption(
+    "Data Source: NYC Taxi & Limousine Commission · January 2024  \n"
+    "Built with Streamlit, Pandas, DuckDB, and Plotly  \n"
+    "COMP 3610 — Big Data Analytics — Assignment 1"
+)
